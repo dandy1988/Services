@@ -8,8 +8,8 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 
 public class CalculatorService extends Service {
-    private float valueActivity1;
-    private float valueActivity2;
+    private float value1;
+    private float value2;
 
     class MyBinder extends Binder {
         public float calculateSum(float value1, float value2){
@@ -22,7 +22,9 @@ public class CalculatorService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        value1 = intent.getFloatExtra("value1", 0f);
+        value2 = intent.getFloatExtra("value2", 0f);
+        return myBinder;
     }
 
 }

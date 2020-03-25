@@ -17,27 +17,10 @@ public class MainActivity extends AppCompatActivity {
 
     String text1 = "";
 
-
-    CalculatorService.MyBinder calcServiceBinder;
-
-    ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            calcServiceBinder = (CalculatorService.MyBinder) service;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Intent intent = new Intent(MainActivity.this, CalculatorService.class);
-        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
 
         Button button1 = findViewById(R.id.button1);
         final EditText EditText1 = findViewById(R.id.etValue1Number);
@@ -52,14 +35,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+                intent.putExtra("text1", text1);
                 startActivity(intent);
-
             }
         });
     }
-//
-//    public void goToActivity2(View view) {
-//        Intent intent2 = new Intent(MainActivity.this, MainActivity2.class);
-//        startActivity(intent2);
-//    }
+
 }
