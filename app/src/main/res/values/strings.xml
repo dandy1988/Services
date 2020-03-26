@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Services</string>
+    <string name="name_value_2">Value#2</string>
+    <string name="name_value_1">Value#1</string>
+    <string name="botton_to_activity2">Next Value</string>
+    <string name="button_to_activity3">Calculate</string>
+    <string name="btn_close">New Values</string>
 </resources>

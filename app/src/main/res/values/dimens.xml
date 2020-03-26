@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity1_paddig">20dp</dimen>
+    <dimen name="activity2_paddig">20dp</dimen>
+    <dimen name="activity3_padding">20dp</dimen>
+</resources>

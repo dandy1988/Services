@@ -45,5 +45,8 @@ public class MainActivity3 extends MainActivity2 {
         }
 
     }
-
+    public void btn_close(View view) {
+        Intent intent = new Intent(MainActivity3.this, MainActivity.class);
+        startActivity(intent);
+    }
 }
