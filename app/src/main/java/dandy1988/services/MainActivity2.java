@@ -10,23 +10,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity2 extends MainActivity {
 
-    String text1 = "";
-    String text2 = "";
+    private CalculatorService.MyBinder calcServiceBinder;
 
-    CalculatorService.MyBinder calcServiceBinder;
-
-    ServiceConnection serviceConnection = new ServiceConnection() {
+    private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             calcServiceBinder = (CalculatorService.MyBinder) service;
+            calcServiceBinder.setBound(true);
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
+            calcServiceBinder.setBound(false);
         }
     };
 
@@ -34,35 +32,42 @@ public class MainActivity2 extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        text1 = getIntent().getExtras().getString("text1");
 
-        Intent intent = new Intent(MainActivity2.this, CalculatorService.class);
-        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
-
-        Button button2 = findViewById(R.id.button2);
+        final Button button2 = findViewById(R.id.button2);
         final EditText EditText2 = findViewById(R.id.etValue2Number);
-
 
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String text2 = "";
                 if (EditText2.getText() != null) {
                     text2 = EditText2.getText().toString();
                     if (text2.isEmpty()) {
                         text2 = "0";
                     }
                 }
-                float result = calcServiceBinder.calculateSum(
-                        Float.valueOf(text1).floatValue(),
-                        Float.valueOf(text2).floatValue());
-
+                if ((calcServiceBinder != null) && (calcServiceBinder.getBound() == true)) {
+                    float result = calcServiceBinder.calculateSum();
+                    calcServiceBinder.setValue2(Float.valueOf(text2).floatValue());
+                }
                 Intent intent = new Intent(MainActivity2.this, MainActivity3.class);
-                intent.putExtra("text1", text1);
-                intent.putExtra("text2", text2);
-                intent.putExtra("result", String.valueOf(result));
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = new Intent(MainActivity2.this, CalculatorService.class);
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unbindService(serviceConnection);
     }
 }
 
