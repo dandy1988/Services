@@ -8,7 +8,7 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 
 public class CalculatorService extends Service {
-    private boolean bound = false;
+    private boolean isBound = false;
     private float value1 = 0f;
     private float value2 = 0f;
 
@@ -39,10 +39,10 @@ public class CalculatorService extends Service {
             value2 = value;
         }
         public void setBound(boolean connect){
-            bound = connect;
+            isBound = connect;
         }
         public boolean getBound(){
-            return bound;
+            return isBound;
         }
     }
 
