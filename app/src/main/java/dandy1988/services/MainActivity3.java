@@ -19,12 +19,12 @@ public class MainActivity3 extends MainActivity2 {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             calcServiceBinder = (CalculatorService.MyBinder) service;
-            calcServiceBinder.setBound(true);
+            calcServiceBinder.setIsBound(true);
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            calcServiceBinder.setBound(false);
+            calcServiceBinder.setIsBound(false);
         }
     };
 
@@ -42,7 +42,7 @@ public class MainActivity3 extends MainActivity2 {
         buttonCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((calcServiceBinder != null) && (calcServiceBinder.getBound() == true)) {
+                if ((calcServiceBinder != null) && (calcServiceBinder.getIsBound() == true)) {
                     String text1 = String.valueOf(calcServiceBinder.getValue1()).toString();
                     String text2 = String.valueOf(calcServiceBinder.getValue2()).toString();
                     String result = String.valueOf(calcServiceBinder.calculateSum()).toString();

@@ -20,12 +20,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             calcServiceBinder = (CalculatorService.MyBinder) service;
-            calcServiceBinder.setBound(true);
+            calcServiceBinder.setIsBound(true);
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            calcServiceBinder.setBound(false);
+            calcServiceBinder.setIsBound(false);
         }
     };
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                     if (text1.isEmpty()) {
                         text1 = "0";
                     }
-                    if ((calcServiceBinder != null) && (calcServiceBinder.getBound() == true)) {
+                    if ((calcServiceBinder != null) && (calcServiceBinder.getIsBound() == true)) {
                         calcServiceBinder.setValue1(Float.valueOf(text1).floatValue());
                     }
                 }

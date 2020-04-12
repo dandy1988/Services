@@ -38,10 +38,10 @@ public class CalculatorService extends Service {
         public void setValue2(float value){
             value2 = value;
         }
-        public void setBound(boolean connect){
+        public void setIsBound(boolean connect){
             isBound = connect;
         }
-        public boolean getBound(){
+        public boolean getIsBound(){
             return isBound;
         }
     }
